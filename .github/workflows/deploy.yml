@@ -1,0 +1,43 @@
+name: Deploy web app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        working-directory: frontend/math_quiz_app
+        run: flutter pub get
+
+      - name: Build web
+        working-directory: frontend/math_quiz_app
+        run: |
+          flutter build web \
+            --dart-define=API_BASE_URL=${{ secrets.API_BASE_URL }} \
+            --base-href /${{ github.event.repository.name }}/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/math_quiz_app/build/web
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
