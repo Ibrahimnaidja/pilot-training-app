@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: math-quiz-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: DATABASE_URL
+        sync: false   # set this manually in the Render dashboard (Neon/Supabase connection string)
+      - key: JWT_SECRET
+        generateValue: true   # Render will generate a random secure value

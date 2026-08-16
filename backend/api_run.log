@@ -1,0 +1,213 @@
+Using launch settings from C:\pilot apps\math exercise\backend\MathQuiz.Api\Properties\launchSettings.json...
+Building...
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (63ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+FROM pg_class AS cls
+JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+WHERE
+        cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+        ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+        -- Exclude tables which are members of PG extensions
+        NOT EXISTS (
+            SELECT 1 FROM pg_depend WHERE
+                classid=(
+                    SELECT cls.oid
+                    FROM pg_class AS cls
+                             JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+                    WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+                ) AND
+                objid=cls.oid AND
+                deptype IN ('e', 'x')
+        )
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5080
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\pilot apps\math exercise\backend\MathQuiz.Api
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (16ms) [Parameters=[@__ToLower_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT EXISTS (
+          SELECT 1
+          FROM "Users" AS u
+          WHERE lower(u."Username") = @__ToLower_0)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?', @p4='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "Users" ("Id", "CreatedAt", "PasswordHash", "Username")
+      VALUES (@p0, @p1, @p2, @p3);
+      INSERT INTO "UserStats" ("UserId", "BestStreak", "CurrentStreak", "TotalAttempts", "TotalCorrect")
+      VALUES (@p4, @p5, @p6, @p7, @p8);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p5='?' (DbType = Guid), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "LogicAttempts" ("Id", "AnsweredAt", "Category", "IsCorrect", "UserId")
+      VALUES (@p0, @p1, @p2, @p3, @p4);
+      INSERT INTO "LogicStats" ("UserId", "BestStreak", "CurrentStreak", "TotalAttempts", "TotalCorrect")
+      VALUES (@p5, @p6, @p7, @p8, @p9);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p7='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "LogicAttempts" ("Id", "AnsweredAt", "Category", "IsCorrect", "UserId")
+      VALUES (@p0, @p1, @p2, @p3, @p4);
+      UPDATE "LogicStats" SET "CurrentStreak" = @p5, "TotalAttempts" = @p6
+      WHERE "UserId" = @p7;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p8='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32), @p7='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "LogicAttempts" ("Id", "AnsweredAt", "Category", "IsCorrect", "UserId")
+      VALUES (@p0, @p1, @p2, @p3, @p4);
+      UPDATE "LogicStats" SET "CurrentStreak" = @p5, "TotalAttempts" = @p6, "TotalCorrect" = @p7
+      WHERE "UserId" = @p8;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__ToLower_0='?'], CommandType='Text', CommandTimeout='30']
+      SELECT u."Id", u."CreatedAt", u."PasswordHash", u."Username"
+      FROM "Users" AS u
+      WHERE lower(u."Username") = @__ToLower_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT u."UserId", u."BestStreak", u."CurrentStreak", u."TotalAttempts", u."TotalCorrect"
+      FROM "UserStats" AS u
+      WHERE u."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (9ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT p."Id", p."CorrectAnswer", p."CreatedAt", p."CreatedByUserId", p."Num1", p."Num2", p."Operator", u."Id", u."CreatedAt", u."PasswordHash", u."Username"
+      FROM "Problems" AS p
+      INNER JOIN "Users" AS u ON p."CreatedByUserId" = u."Id"
+      WHERE p."CreatedByUserId" <> @__userId_0
+      ORDER BY random()
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT p."Id", p."CorrectAnswer", p."CreatedAt", p."CreatedByUserId", p."Num1", p."Num2", p."Operator", u."Id", u."CreatedAt", u."PasswordHash", u."Username"
+      FROM "Problems" AS p
+      INNER JOIN "Users" AS u ON p."CreatedByUserId" = u."Id"
+      ORDER BY random()
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p7='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "LogicAttempts" ("Id", "AnsweredAt", "Category", "IsCorrect", "UserId")
+      VALUES (@p0, @p1, @p2, @p3, @p4);
+      UPDATE "LogicStats" SET "CurrentStreak" = @p5, "TotalAttempts" = @p6
+      WHERE "UserId" = @p7;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (12ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT u."UserId", u."BestStreak", u."CurrentStreak", u."TotalAttempts", u."TotalCorrect"
+      FROM "UserStats" AS u
+      WHERE u."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (14ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT p."Id", p."CorrectAnswer", p."CreatedAt", p."CreatedByUserId", p."Num1", p."Num2", p."Operator", u."Id", u."CreatedAt", u."PasswordHash", u."Username"
+      FROM "Problems" AS p
+      INNER JOIN "Users" AS u ON p."CreatedByUserId" = u."Id"
+      WHERE p."CreatedByUserId" <> @__userId_0
+      ORDER BY random()
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT p."Id", p."CorrectAnswer", p."CreatedAt", p."CreatedByUserId", p."Num1", p."Num2", p."Operator", u."Id", u."CreatedAt", u."PasswordHash", u."Username"
+      FROM "Problems" AS p
+      INNER JOIN "Users" AS u ON p."CreatedByUserId" = u."Id"
+      ORDER BY random()
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p6='?' (DbType = Guid), @p5='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "LogicAttempts" ("Id", "AnsweredAt", "Category", "IsCorrect", "UserId")
+      VALUES (@p0, @p1, @p2, @p3, @p4);
+      UPDATE "LogicStats" SET "TotalAttempts" = @p5
+      WHERE "UserId" = @p6;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p6='?' (DbType = Guid), @p5='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "LogicAttempts" ("Id", "AnsweredAt", "Category", "IsCorrect", "UserId")
+      VALUES (@p0, @p1, @p2, @p3, @p4);
+      UPDATE "LogicStats" SET "TotalAttempts" = @p5
+      WHERE "UserId" = @p6;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT l."UserId", l."BestStreak", l."CurrentStreak", l."TotalAttempts", l."TotalCorrect"
+      FROM "LogicStats" AS l
+      WHERE l."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Boolean), @p4='?' (DbType = Guid), @p6='?' (DbType = Guid), @p5='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO "LogicAttempts" ("Id", "AnsweredAt", "Category", "IsCorrect", "UserId")
+      VALUES (@p0, @p1, @p2, @p3, @p4);
+      UPDATE "LogicStats" SET "TotalAttempts" = @p5
+      WHERE "UserId" = @p6;
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT u."UserId", u."BestStreak", u."CurrentStreak", u."TotalAttempts", u."TotalCorrect"
+      FROM "UserStats" AS u
+      WHERE u."UserId" = @__userId_0
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+      SELECT p."Id", p."CorrectAnswer", p."CreatedAt", p."CreatedByUserId", p."Num1", p."Num2", p."Operator", u."Id", u."CreatedAt", u."PasswordHash", u."Username"
+      FROM "Problems" AS p
+      INNER JOIN "Users" AS u ON p."CreatedByUserId" = u."Id"
+      WHERE p."CreatedByUserId" <> @__userId_0
+      ORDER BY random()
+      LIMIT 1
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT p."Id", p."CorrectAnswer", p."CreatedAt", p."CreatedByUserId", p."Num1", p."Num2", p."Operator", u."Id", u."CreatedAt", u."PasswordHash", u."Username"
+      FROM "Problems" AS p
+      INNER JOIN "Users" AS u ON p."CreatedByUserId" = u."Id"
+      ORDER BY random()
+      LIMIT 1
